@@ -1,4 +1,4 @@
-package sunghs.springexample.injection.service;
+package sunghs.springexample.beaninjection;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

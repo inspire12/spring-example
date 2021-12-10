@@ -1,13 +1,17 @@
-package sunghs.springexample.injection.service;
+package sunghs.springexample.beaninjection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FieldInjectionService {
+public class SetterInjectionService {
+
+    private ExampleService exampleService;
 
     @Autowired
-    private ExampleService exampleService;
+    public void setExampleService(ExampleService exampleService) {
+        this.exampleService = exampleService;
+    }
 
     public void getBusinessLogic() {
         exampleService.businessLogic();
