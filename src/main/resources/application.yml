@@ -1,1 +1,8 @@
 spring.main.allow-circular-references: true
+
+some:
+  some-name: test
+  is-enabled: true
+  some-nested-property:
+    some-nested-name: nested-test
+    some-nested-list: a,b,c,e,d

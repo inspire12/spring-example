@@ -4,7 +4,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.Assert;
 import sunghs.springexample.model.Student;
 
 @Configuration
@@ -24,7 +23,7 @@ public class ConditionConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        Assert.notNull(localStudent(), "local student is null");
-        Assert.notNull(cloudStudent(), "cloud student is null");
+        // Assert.notNull(localStudent(), "local student is null");
+        // Assert.notNull(cloudStudent(), "cloud student is null");
     }
 }
