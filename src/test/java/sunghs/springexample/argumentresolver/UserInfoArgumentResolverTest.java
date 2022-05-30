@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
@@ -42,6 +43,7 @@ class UserInfoArgumentResolverTest {
     }
 
     @Test
+    @DisplayName("헤더에 userInfo가 들어온 경우")
     void userInfoArgumentValidTest() throws Exception {
         UserInfo userInfo = new UserInfo(100L, "test");
 
@@ -58,6 +60,23 @@ class UserInfoArgumentResolverTest {
                     UserInfo response = objectMapper.readValue(result.getResponse().getContentAsString(), UserInfo.class);
                     Assertions.assertEquals(100, response.getId());
                     Assertions.assertEquals("test", response.getName());
+                })
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("헤더에 userInfo가 없는 경우")
+    void userInfoArgumentInvalidTest() throws Exception {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/test").headers(httpHeaders))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andExpect(result -> {
+                    UserInfo response = objectMapper.readValue(result.getResponse().getContentAsString(), UserInfo.class);
+                    Assertions.assertNull(response.getId());
+                    Assertions.assertNull(response.getName());
                 })
                 .andDo(MockMvcResultHandlers.print());
     }

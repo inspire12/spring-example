@@ -3,6 +3,7 @@ package sunghs.springexample.argumentresolver.interceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import sunghs.springexample.argumentresolver.model.UserInfo;
 
@@ -23,7 +24,9 @@ public class UserInfoAuthenticationInterceptor implements HandlerInterceptor {
         UserInfo userInfo;
 
         try {
-            userInfo = objectMapper.readValue(authorization, UserInfo.class);
+            userInfo = StringUtils.isNotEmpty(authorization)
+                ? objectMapper.readValue(authorization, UserInfo.class)
+                : new UserInfo();
         } catch (Exception e) {
             log.error("authorization read value error", e);
             userInfo = new UserInfo();
