@@ -6,3 +6,13 @@ some:
   some-nested-property:
     some-nested-name: nested-test
     some-nested-list: a,b,c,e,d
+
+
+example-bean:
+  list:
+    - name: xbean
+      value: 11111
+    - name: ybean
+      value: 22222
+    - name: zbean
+      value: 33333
