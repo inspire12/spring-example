@@ -30,10 +30,10 @@ class ActiveProfilesTest {
 
     @Test
     void test() {
-        Arrays.stream(environment.getActiveProfiles()).forEach(profile -> log.info("env.getActiveProfiles : {}", profile));
-        log.info("env spring.profiles.active : {}", environment.getProperty("spring.profiles.active"));
-        log.info("env spring.profiles.active[0] : {}", environment.getProperty("spring.profiles.active[0]"));
-        log.info("spring profile active value annotation : {}", active);
+        Arrays.stream(environment.getActiveProfiles()).forEach(profile -> log.info("env.getActiveProfiles() : {}", profile));
+        log.info("env.get spring.profiles.active : {}", environment.getProperty("spring.profiles.active"));
+        log.info("env.get spring.profiles.active[0] : {}", environment.getProperty("spring.profiles.active[0]"));
+        log.info("spring.profiles.active value annotation : {}", active);
         log.info("profile configuration : {}", profileConfiguration.toString());
         log.info("resource configuration : {}", resourceConfiguration.toString());
         profileConditionalService.doSomething();
