@@ -46,7 +46,7 @@ public class DynamicBeanConfiguration implements BeanPostProcessor {
         log.info(((DynamicBean) x).getId());
         log.info(((DynamicBean) y).getId());
         log.info(((DynamicBean) z).getId());
-
+        
         return bean;
     }
 }

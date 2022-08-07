@@ -1,12 +1,17 @@
+spring:
+  profiles:
+    active: local
+  config:
+    import: resource-local.yml
+
 spring.main.allow-circular-references: true
 
 some:
-  some-name: test
+  some-name: local
   is-enabled: true
   some-nested-property:
     some-nested-name: nested-test
     some-nested-list: a,b,c,e,d
-
 
 example-bean:
   list:
@@ -16,3 +21,18 @@ example-bean:
       value: 22222
     - name: zbean
       value: 33333
+
+profiles:
+  name: local
+  data: 1
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+    import: resource-test.yml
+
+profiles:
+  name: test
+  data: 2
+
