@@ -17,20 +17,23 @@ public class JavaStreamEx {
     private static final Set<String> worker = new HashSet<>();
 
     public static void main(String[] args) {
-        // init
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "15");
+        ForkJoinPool customPool = new ForkJoinPool(20);
+
         List<CompletableFuture<Void>> list = IntStream.rangeClosed(1, 100)
             .boxed()
             .map(integer -> CompletableFuture.runAsync(() ->
-                something(integer)))
+                something(integer), customPool))
             .collect(Collectors.toList());
 
         list.stream()
             .map(CompletableFuture::join)
             .collect(Collectors.toList());
 
-        log.info("{}", Runtime.getRuntime().availableProcessors());
-        log.info("{}", worker.size());
-        log.info("{}", ForkJoinPool.commonPool().getPoolSize());
+        log.info("core size   {}", Runtime.getRuntime().availableProcessors());
+        log.info("real worker {}", worker.size());
+        log.info("custom pool {}", customPool.getPoolSize());
+        log.info("common pool {}", ForkJoinPool.commonPool().getPoolSize());
     }
 
     private static void something(int i) {
